@@ -1,0 +1,7 @@
+---
+
+- name: Install webserver package to VM image
+  copy: 
+    src: "{{ build_dir }}/webserver/content"
+    dest: /data/website
+  become: yes

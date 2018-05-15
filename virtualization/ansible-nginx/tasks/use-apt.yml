@@ -8,17 +8,20 @@
 # @see http://nginx.org/packages/debian/dists/
 #
 
-- name: install add-apt-repository binary for Ansible to work
+- name: install add-software-properties-common binary for Ansible to work
   apt: name=software-properties-common state=present update_cache=yes
 
+- name: install apt-transport-https package to download from https
+  apt: name=apt-transport-https state=present update_cache=yes
+
 - name: add Nginx stable repository (deb)
-  apt_repository: repo='deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release|lower }} nginx' state=present
+  apt_repository: repo='deb https://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release|lower }} nginx' state=present
 
 - name: add Nginx stable repository (deb-src)
-  apt_repository: repo='deb-src http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release|lower }} nginx' state=present
+  apt_repository: repo='deb-src https://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release|lower }} nginx' state=present
 
 - name: add Nginx.org key
-  apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+  apt_key: url=https://nginx.org/keys/nginx_signing.key state=present
 
 - name: run the equivalent of "apt-get update" as a separate step
   apt: update_cache=yes

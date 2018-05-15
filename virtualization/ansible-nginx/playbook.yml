@@ -14,6 +14,7 @@
 
   vars:
     #nginx_version: 1.8.1
+    build_dir: "{{ ansible_env.PWD | dirname }}"
 
   tasks:
     - include: 'tasks/main.yml'
