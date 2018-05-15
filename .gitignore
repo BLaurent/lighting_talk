@@ -4,3 +4,4 @@
 *.vmdk
 *.box
 *.log
+packer_cache
