@@ -1,0 +1,42 @@
+---
+# file: tasks/use-apt.yml
+#
+# Configure nginx from APT repository.
+#
+# @see http://wiki.nginx.org/Install
+# @see http://nginx.org/packages/ubuntu/dists/
+# @see http://nginx.org/packages/debian/dists/
+#
+
+- name: install add-apt-repository binary for Ansible to work
+  apt: name=software-properties-common state=present update_cache=yes
+
+- name: add Nginx stable repository (deb)
+  apt_repository: repo='deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release|lower }} nginx' state=present
+
+- name: add Nginx stable repository (deb-src)
+  apt_repository: repo='deb-src http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release|lower }} nginx' state=present
+
+- name: add Nginx.org key
+  apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+
+- name: run the equivalent of "apt-get update" as a separate step
+  apt: update_cache=yes
+
+- name: install Nginx with specific version
+  apt: name="nginx={{ nginx_version }}*"  update_cache=yes  state=present force=yes
+  when: nginx_version is defined
+
+- name: install Nginx with default version
+  apt: name="nginx"  update_cache=yes  state=present force=yes
+  when: nginx_version is not defined
+
+#- name: set INIT status (SysV style)
+#  shell: update-rc.d nginx defaults
+
+- name: set INIT status
+  service: name=nginx enabled=yes
+
+- name: start the Nginx service, if necessary
+  service: name=nginx state=started
+  when: nginx_start

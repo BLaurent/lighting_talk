@@ -1,0 +1,60 @@
+---
+# file: tasks/main.yml
+# Top-level installer for Nginx.
+#
+# @see http://wiki.nginx.org/Install
+#
+
+- name: set role variables, if necessary
+  include: set-role-variables.yml
+
+- name: delegate to SELINUX handling subtask, if necessary
+  include: set-selinux.yml
+  when: nginx_in_selinux is defined and nginx_in_selinux == true
+
+- name: delegate to APT system for installation
+  include: use-apt.yml
+  when: ansible_pkg_mgr == "apt"
+
+- name: rename default/example conf files in /etc/nginx/conf.d/, if any
+  command: mv -f  "/etc/nginx/conf.d/{{ item }}"  "/etc/nginx/conf.d/{{ item }}.bak"
+  with_items:
+    - default.conf
+    - example_ssl.conf
+  ignore_errors: true
+
+- name: copy Nginx main config file from role's default, if necessary
+  template:
+    src:  ../templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    validate: "nginx -t -c %s"
+  when: nginx_conf_main is not defined
+  notify:
+    - reload nginx
+
+- name: copy Nginx main config file from playbook's, if any
+  template:
+    src:  "{{ playbook_dir }}/{{ nginx_conf_main }}"
+    dest: /etc/nginx/nginx.conf
+    validate: "nginx -t -c %s"
+  when: nginx_conf_main is defined
+  notify:
+    - reload nginx
+
+- name: copy other Nginx config files from playbook's, if any
+  template:
+    src:  "{{ playbook_dir }}/{{ item.value.src }}"
+    dest: "/etc/nginx/conf.d/{{ item.value.dest }}"
+    #validate: "nginx -t -c %s"
+  with_dict: '{{ nginx_conf_others | default({}) }}'
+  notify:
+    - reload nginx
+
+- name: install http://HOST:PORT site, if requested
+  copy:
+    src:  ../files/nginx_site.conf
+    dest: /etc/nginx/conf.d/nginx_site.conf
+    #validate: "nginx -t -c %s"
+  when: nginx_site|bool
+  notify:
+    - reload nginx

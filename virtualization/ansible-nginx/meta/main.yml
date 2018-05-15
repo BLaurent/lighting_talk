@@ -1,0 +1,23 @@
+---
+# nginx/meta/main.yml
+
+galaxy_info:
+    author: blaurent
+    description: Install and configure Nginx
+    license: MIT
+
+    # for the `playbook_dir` bug:
+    # https://github.com/ansible/ansible/issues/8317
+    min_ansible_version: 1.7.1
+
+    platforms:
+        - name: Ubuntu
+          versions:
+              - xenial
+    galaxy_tags:
+        - cloud
+        - system
+        - web
+        - nginx
+
+dependencies: []
