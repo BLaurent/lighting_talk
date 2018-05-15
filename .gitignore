@@ -2,3 +2,5 @@
 *.iso
 *.ovf
 *.vmdk
+*.box
+*.log
