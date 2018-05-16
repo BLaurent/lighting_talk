@@ -9,4 +9,5 @@
   git: 
     repo: 'https://github.com/BLaurent/dummy-website.git'
     dest: /data/website
-
+    force: yes
+    update: yes
