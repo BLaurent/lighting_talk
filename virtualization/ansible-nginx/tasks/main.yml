@@ -16,7 +16,7 @@
   include: use-apt.yml
   when: ansible_pkg_mgr == "apt"
 
-- name: Delegate applicatiomn install
+- name: Delegate application install
   include: install-app.yml
 
 - name: rename default/example conf files in /etc/nginx/conf.d/, if any

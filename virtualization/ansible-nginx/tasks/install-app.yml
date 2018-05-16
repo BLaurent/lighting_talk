@@ -1,7 +1,12 @@
 ---
+- name: install git package to download source code
+  apt: name=git-all state=present update_cache=yes
+
+- name: Create directory to host file app
+  file: path=/data/website state=directory  
 
 - name: Install webserver package to VM image
-  copy: 
-    src: "{{ build_dir }}/webserver/content"
+  git: 
+    repo: 'https://github.com/BLaurent/dummy-website.git'
     dest: /data/website
-  become: yes
+

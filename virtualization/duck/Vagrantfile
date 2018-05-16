@@ -16,8 +16,8 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "packer_virtualbox-ios_virtualbox.box"
-  config.vm.box_url = "file:///Users/laurentbenoit/Git/lighting_talk/virtualization/packer_virtualbox-iso_virtualbox.box"
+  config.vm.box = "ubuntu-16.04-amd64-virtualbox.box"
+  config.vm.box_url = "file:///tmp/ubuntu-16.04-amd64-virtualbox.box"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

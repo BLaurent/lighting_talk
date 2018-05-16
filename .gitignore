@@ -5,3 +5,5 @@
 *.box
 *.log
 packer_cache
+output-virtualbox-iso
+.DS_Store
