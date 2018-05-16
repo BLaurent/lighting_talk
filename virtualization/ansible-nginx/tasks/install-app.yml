@@ -1,6 +1,6 @@
 ---
 - name: install git package to download source code
-  apt: name=git-all state=present update_cache=yes
+  apt: name=git state=present update_cache=yes
 
 - name: Create directory to host file app
   file: path=/data/website state=directory  
@@ -11,3 +11,4 @@
     dest: /data/website
     force: yes
     update: yes
+
