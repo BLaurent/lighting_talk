@@ -7,3 +7,7 @@
 packer_cache
 output-virtualbox-iso
 .DS_Store
+CMakeFiles
+cmake_install.cmake
+CMakeCache.txt
+Makefile
