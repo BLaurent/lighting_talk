@@ -82,7 +82,18 @@ Et Voila !!!
 
 # Forth step : VM image creation and test on Digital Ocean
 
-To create an image compatible with Digital Ocean, you just need to launch :
+First things to do is to change the API key in the *packer.json* file with yours.
+
+    {
+      "type": "digitalocean",
+      "api_token": "XXXXXXXXXXX",
+      "image": "ubuntu-16-04-x64",
+      "region": "fra1",
+      "size": "512mb",
+      "ssh_username": "root"
+    },
+
+Then to create an image compatible with Digital Ocean, you just need to launch :
 
     packer build -only=digitalocean packer.json
 
