@@ -61,3 +61,8 @@
   when: nginx_site|bool
   notify:
     - reload nginx
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes  
+    autoremove: yes

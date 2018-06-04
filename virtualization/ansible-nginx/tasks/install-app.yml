@@ -12,3 +12,5 @@
     force: yes
     update: yes
 
+- name: uninstall git package
+  apt: name=git state=absent
