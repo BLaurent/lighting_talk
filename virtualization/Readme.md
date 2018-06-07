@@ -11,7 +11,7 @@ Pre-requisites, install some new software:
 # First Step : Your first VM
 You can start you first VM and checking if the previous step did work with the following:
 
-    git clone https://github.build.ge.com/100026625/lighting_talk
+    git clone https://github.com/BLaurent/lighting_talk
     cd lighting_talk/virtualization/webserver
     vagrant up
     vagrant ssh
