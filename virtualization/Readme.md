@@ -82,7 +82,7 @@ Et Voila !!!
 
 # Forth step : VM image creation and test on Digital Ocean
 
-First things to do is to change the API key in the *packer.json* file with yours.
+First things to do is to set the API key with yours. You can set the env variable DIGITALOCEAN_API_TOKEN with your api key and everything should run smoothly.
 
     {
       "type": "digitalocean",
@@ -130,5 +130,3 @@ Then
     
     doctl compute image delete XXX
     doctl compute droplet delete YYYY
-
-
