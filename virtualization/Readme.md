@@ -3,9 +3,9 @@
 Pre-requisites, install some new software:
 
     brew cask install virtualbox virtualbox-extension-pack
+    brew cask install vagrant
     vagrant plugin install vagrant-vbguest
     brew install packer ansible terraform-provisioner-ansible terraform doctl
-    brew cask install vagrant
 
 
 # First Step : Your first VM
