@@ -3,7 +3,11 @@ version: '3.6'
 services:
   app-server:
     image: blaurent/go-demo-app
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 2
     expose:
       - 8080
     environment:
