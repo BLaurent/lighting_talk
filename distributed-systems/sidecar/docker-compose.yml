@@ -8,8 +8,8 @@ services:
         condition: on-failure
       mode: replicated
       replicas: 2
-    expose:
-      - 8080
+    networks:
+      - sidecar-network
     environment:
       - PORT=8080
 
@@ -21,12 +21,16 @@ services:
       - BALANCE=leastconn
       - CERT_FOLDER=/certs/
       - CERT_FILE=/certs/haproxy-selfsigned.pem
-    links:
-      - app-server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - $PWD/certs:/certs
+    networks:
+      - sidecar-network
     ports:
       - 8084:443
       - 8085:80
       - 8086:1936
+
+networks:
+  sidecar-network:
+    driver: overlay
